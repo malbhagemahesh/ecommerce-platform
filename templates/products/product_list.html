@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>All Products</h2>
+
+<form method="GET" class="mb-4">
+
+    <select name="category" class="form-select mb-3">
+
+        <option value="">All Categories</option>
+
+        {% for category in categories %}
+
+            <option value="{{ category.id }}">
+                {{ category.name }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search products..."
+            value="{{ query|default:'' }}">
+
+        <button
+            class="btn btn-primary"
+            type="submit">
+
+            Search
+
+        </button>
+
+    </div>
+
+</form>
+
+<div class="row">
+
+{% for product in products %}
+
+<div class="col-md-3 mb-4">
+
+    <div class="card h-100">
+
+        {% if product.image %}
+        <img src="{{ product.image.url }}"
+             class="card-img-top"
+             height="220">
+        {% endif %}
+
+        <div class="card-body">
+
+            <h5>{{ product.name }}</h5>
+
+            <p><strong>₹{{ product.price }}</strong></p>
+
+            <a href="/products/{{ product.id }}/"
+               class="btn btn-success">
+                Details
+            </a>
+
+            <a
+               href="/cart/add/{{ product.id }}/"
+                class="btn btn-primary">
+
+                Add To Cart
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+    <div class="alert alert-warning">
+        No products found.
+    </div>
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}

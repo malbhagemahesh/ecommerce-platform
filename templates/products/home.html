@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Featured Products</h2>
+
+<div class="row">
+
+{% for product in products %}
+
+<div class="col-md-3 mb-4">
+
+    <div class="card h-100">
+
+        {% if product.image %}
+        <img src="{{ product.image.url }}"
+             class="card-img-top"
+             alt="{{ product.name }}"
+             height="220">
+        {% endif %}
+
+        <div class="card-body">
+
+            <h5>{{ product.name }}</h5>
+
+            <p>₹{{ product.price }}</p>
+
+            <a href="/products/{{ product.id }}/"
+               class="btn btn-primary">
+                View
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
